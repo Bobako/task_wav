@@ -1,5 +1,5 @@
 from app import app, config
 
 if __name__ == '__main__':
-    app.run(port=int(config["SITE"]["PORT"]))
+    app.run(host='0.0.0.0', port=int(config["SITE"]["port"]))
 

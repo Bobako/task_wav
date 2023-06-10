@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: "postgrespw"
+    volumes:
+      - wav-data:/var/lib/postgresql
+    ports:
+      - 5432:5432
+    restart: always
+
+  task_wav:
+    image: bobako/task_wav
+    environment:
+      - USE_ENV=1
+      - DATABASE_URI=postgresql+psycopg2://postgres:postgrespw@postgres:5432
+      - SITE_PORT=5000
+      - SITE_UPLOAD_FOLDER=/documents
+    ports:
+      - "5000:5000"
+    volumes:
+      - documents:/documents
+    restart: always
+
+volumes:
+  wav-data:
+  documents:
